@@ -11,7 +11,7 @@ var express = require('express'),
 
 var app = module.exports = express();
 var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
+//var io = require('socket.io').listen(server);
 
 /**
  * Configuration
@@ -53,7 +53,7 @@ app.get('/api/name', api.name);
 app.get('*', routes.index);
 
 // Socket.io Communication
-io.sockets.on('connection', require('./routes/socket'));
+//io.sockets.on('connection', require('./routes/socket'));
 
 /**
  * Start Server

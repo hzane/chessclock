@@ -3,15 +3,21 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('AppCtrl', function ($scope, socket) {
-    socket.on('send:name', function (data) {
-      $scope.name = data.name;
-    });
+  controller('AppCtrl', function ($scope) {
   }).
-  controller('MyCtrl1', function ($scope, socket) {
-    socket.on('send:time', function (data) {
-      $scope.time = data.time;
-    });
+  controller('MyCtrl1', function ($scope) {
+
+    var myFirebaseRef = new Firebase("https://chessclock.firebaseio.com/");
+
+    $scope.newGame = function(){
+      myFirebaseRef.set({
+        title: "Hello CHESS CLOCL!",
+        location: {
+        city: "Austin"
+    }
+});
+
+    }
   }).
   controller('MyCtrl2', function ($scope) {
     // write Ctrl here

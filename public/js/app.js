@@ -8,10 +8,7 @@ angular.module('myApp', [
   'myApp.controllers',
   'myApp.filters',
   'myApp.services',
-  'myApp.directives',
-
-  // 3rd party dependencies
-  'btford.socket-io'
+  'myApp.directives'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
