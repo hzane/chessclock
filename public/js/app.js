@@ -3,26 +3,34 @@
 // Declare app level module which depends on filters, and services
 
 angular.module('myApp', [
-  'ngRoute',
-
+  'ui.router',
   'myApp.controllers',
   'myApp.filters',
   'myApp.services',
   'myApp.directives'
 ]).
-config(function ($routeProvider, $locationProvider) {
-  $routeProvider.
-    when('/view1', {
-      templateUrl: 'partials/partial1',
-      controller: 'MyCtrl1'
-    }).
-    when('/view2', {
-      templateUrl: 'partials/partial2',
-      controller: 'MyCtrl2'
-    }).
-    otherwise({
-      redirectTo: '/view1'
-    });
+config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  $urlRouterProvider.otherwise("/");
 
-  $locationProvider.html5Mode(true);
+  $stateProvider
+    .state('home', {
+      url: "/",
+      templateUrl: "partials/home.jade"
+    })
+    .state('new', {
+      url: "/new",
+      templateUrl: "partials/new.jade",
+      controller: 'NewCtrl'
+    })
+    .state('join', {
+      url: "/join",
+      templateUrl: "partials/join.jade",
+      controller: 'JoinCtrl'
+    })
+    .state('game', {
+      url: "/game",
+      templateUrl: "partials/game.jade",
+      controller: 'GameCtrl'
+    });
+    $locationProvider.html5Mode(true);
 });

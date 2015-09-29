@@ -3,33 +3,28 @@ html, body{
   height: 100%;
   margin: 0;
   padding:0;
-  text-align: center;
 }
 h2.header{
   font-family: Pacifico;
-  font-size: 150px;
   color:gray;
-  text-align: center;
 }
 div.home{
-  width: 100%;
-  height: 100%;
+  margin:25px;
 }
 div.home div{
-  width:100%;
-  min-height: 230px;
+  height:65px;
 }
 div.home div a{
+  display: block;
+  width:200px;
   font-family: 'Roboto Mono';
-  color:#000;
-  border:2px solid #000;
-  border-radius: 100%;
-  padding:55px;
-  margin:0px 0 10px 0;
-  font-size: 60px;
   text-decoration: none;
+  padding:10px 0;
+  background: #000;
+  color:#ccc;
+  text-align: center;
+  font-weight: 900;
 }
 div.home div a:hover{
-  background: #000;
-  color:#fff;
+  background:red;
 }

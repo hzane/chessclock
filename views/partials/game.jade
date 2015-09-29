@@ -1,0 +1,11 @@
+h2 GAME ID: {{game.id}}
+h2 STATUS: {{game.status}}
+h2 PLAYER: {{game.player}}
+div
+	span Opponent Time: 
+		span {{opponent_time.minutes}}:{{opponent_time.seconds}}
+div
+	button(ng-click="timer.press()")	TIMER	
+div
+	span My Time: 
+		span {{my_time.minutes}}:{{my_time.seconds}}
