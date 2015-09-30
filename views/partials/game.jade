@@ -5,7 +5,7 @@ div
 	span Opponent Time: 
 		span {{opponent_time.minutes}}:{{opponent_time.seconds}}
 div
-	button(ng-click="timer.press()")	TIMER	
+	button(ng-click="timer.press()", ng-disabled="timer.lock")	TIMER	
 div
 	span My Time: 
 		span {{my_time.minutes}}:{{my_time.seconds}}

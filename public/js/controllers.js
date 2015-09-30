@@ -92,6 +92,7 @@ createGame();
       
       //if(res.status != 'join'){return false;}
       if(game.devFirstRun){return false;}
+        $scope.timer.lock = false;
       game.devFirstRun=true;
       //temp patch ^^^
 
@@ -116,9 +117,28 @@ createGame();
     }
 
     game.update = function(item){
-      console.log('updated...');
-      console.log(item.val());
-      console.log(game);
+      var res = item.val();
+      console.log(res);
+      if(res==='stopped' && game.player != res.player){
+        gameSvc.timer.press();
+        $scope.timer.lock = false;
+      }
+
+      if(res.hasOwnProperty('time') && game.player != res.player){
+      $scope.timer.lock = true;
+      var minutes = res.time.split(':')[0];
+      var seconds = res.time.split(':')[1];
+      $scope.opponent_time.minutes = minutes;
+      $scope.opponent_time.seconds = seconds;
+      $timeout(function() {
+        $scope.$apply();
+      });
+
+      }else{
+
+        return false;
+      }
+
     }
 
     game.start();

@@ -51,10 +51,26 @@ angular.module('myApp.services', []).
   			}
   			return res;
   		},
+      updateView:function(player){
+            if(game.scope[player].seconds.toString() === '00' && game.scope[player].minutes === 0){
+              game.timer.stop(player);
+              return false;
+            }
+            if(game.scope[player].seconds.toString() === '00'){
+              game.scope[player].seconds = '59';
+              game.scope[player].minutes = game.scope[player].minutes-1;
+            }else{
+              var secs = parseInt(game.scope[player].seconds)-1;
+              secs = secs < 10 ? 0+secs.toString() : secs;
+              game.scope[player].seconds = secs;
+            }
+            game.scope.$apply();
+
+      },
   		timer:{
   			status:'stopped',
   			press:function(){
-  				game.turn = game.player
+  				game.turn = game.player;
   				if(game.turn === game.player){
   					var player = 'my_time';
   				}else{
@@ -63,11 +79,10 @@ angular.module('myApp.services', []).
   				this.toggle(player);
   			},
   			toggle:function(player){
-  				//find which timer is running, stop it, start other
 
-  				if(game.scope[player].seconds.toString() === '00' && game.scope[player].minutes === 0){
-  					return false;
-  				}
+          if(game.scope[player].seconds.toString() === '00' && game.scope[player].minutes === 0){
+            return false;
+          }
   				if(this.status==='stopped'){
   					this.start(player);
   				}else{
@@ -78,31 +93,18 @@ angular.module('myApp.services', []).
   			start:function(player){
 			    game.gameRef.update({status:'running'});
   				this.status = 'running';
-  				var mins = '';
-  				var secs = '';
   				game.interval = setInterval(function(){
-	  				if(game.scope[player].seconds.toString() === '00' && game.scope[player].minutes === 0){
-	  					this.stop(player);
-	  					return false;
-	  				}
-  					if(game.scope[player].seconds.toString() === '00'){
-  						game.scope[player].seconds = '59';
-  						game.scope[player].minutes = game.scope[player].minutes-1;
-  					}else{
-  						secs = parseInt(game.scope[player].seconds)-1;
-  						secs = secs < 10 ? 0+secs.toString() : secs;
-  						game.scope[player].seconds = secs;
-  					}
-
-        				game.gameRef.update({turn:game.turn, runningTime:game.scope[player].minutes+':'+game.scope[player].seconds});
-      					game.scope.$apply();
+              game.updateView(player);
+        			game.gameRef.update({turns:{player:game.player, time:game.scope[player].minutes+':'+game.scope[player].seconds}});
   				}, 1000);
   			},
   			stop:function(player){
 			    game.gameRef.update({status:'stopped'});
   				this.status = 'stopped';
   				clearInterval(game.interval);
-  			}
+          this.lock = true;
+  			},
+        lock:false
   		}
   	};
     return game;
